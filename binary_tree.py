@@ -1,3 +1,6 @@
+from typing import List
+
+
 class Node:
     def __init__(self, value, left=None, right=None):
         self.left = left
@@ -44,6 +47,43 @@ class Tree:
                     return now_node.left
                 else:
                     now_node = now_node.left
+                    
+    def dfs(self) -> List:
+        if self.root is None:
+            return []
+
+        stack = [self.root]
+        result = []
+
+        while stack:
+            now_node = stack.pop()
+            result.append(now_node.value)
+            
+            if now_node.right:
+                stack.append(now_node.right)
+            if now_node.left:
+                stack.append(now_node.left)
+
+        return result
+    
+    def bfs(self) -> List:
+        if self.root is None:
+            return []
+
+        queue = [self.root]
+        result = []
+        
+        while queue:
+            now_node = queue.pop(0)
+            result.append(now_node.value)
+            
+            if now_node.left:
+                queue.append(now_node.left)
+            if now_node.right:
+                queue.append(now_node.right)
+        
+        return result
+            
 
 
 tree = Tree(4)
@@ -53,4 +93,5 @@ tree.add_element(7)
 tree.add_element(1)
 tree.add_element(3)
 
-print(tree)
+print(tree.bfs())
+
